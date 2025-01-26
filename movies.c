@@ -1,6 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h> // for EXIT_SUCCESS and EXIT_FAILURE
 
+
+void processMovieFile(char* filePath);
+
+
+int main ( int argc, char **argv ){
+    if (argc < 2)
+    {
+        printf("You must provide the name of the file to process\n");
+        printf("Example usage: ./movies movies.csv\n");
+        return EXIT_FAILURE;
+    }
+    processMovieFile(argv[1]);
+    return EXIT_SUCCESS;
+}
+
 /*
  * Function: processMovieFile
  *   Opens a file, reads and prints each line
@@ -15,6 +30,10 @@
 
     // Open the specified file for reading only
     FILE *movieFile = fopen(filePath, "r");
+    if (movieFile == NULL) {
+        printf("Error opening file %s\n", filePath);
+        return;
+    }
 
     // Read the file line by line
     while(getline(&currLine, &len, movieFile) != -1)
@@ -27,19 +46,4 @@
     // Close the file
     fclose(movieFile);
     printf("\nProcessed file %s\n", filePath);
-}
-
-
-/**
- * 
- */
-int main ( int argc, char **argv ){
-    if (argc < 2)
-    {
-        printf("You must provide the name of the file to process\n");
-        printf("Example usage: ./movies movies.csv\n");
-        return EXIT_FAILURE;
-    }
-    processMovieFile(argv[1]);
-    return EXIT_SUCCESS;
 }
