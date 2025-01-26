@@ -4,6 +4,13 @@
 
 void processMovieFile(char* filePath);
 
+struct movie {
+    char *title;
+    char *year;
+    char *language;
+    char *rating;
+};
+
 
 int main ( int argc, char **argv ){
     if (argc < 2)
